@@ -33,97 +33,94 @@ class _SignUpState extends State<SignUp> {
             body: Container(
                 width: double.infinity,
                 color: const Color.fromARGB(255, 7, 176, 255),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset(
-                          'lib/assets/images/photo_2024-11-22_00-28-22.jpg',
-                          width: 300,
-                          height: 300,
-                        ),
+                child: ListView(children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      'lib/assets/images/photo_2024-11-22_00-28-22.jpg',
+                      width: 300,
+                      height: 300,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.person),
+                        hintText: 'First Name',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(18)),
+                        filled: true,
+                        fillColor: Colors.white,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.person),
-                            hintText: 'First Name',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(18)),
-                            filled: true,
-                            fillColor: Colors.white,
-                          ),
-                          obscureText: false,
-                        ),
+                      obscureText: false,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.person),
+                        hintText: 'Last Name',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(18)),
+                        filled: true,
+                        fillColor: Colors.white,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.person),
-                            hintText: 'Last Name',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(18)),
-                            filled: true,
-                            fillColor: Colors.white,
-                          ),
-                          obscureText: false,
-                        ),
+                      obscureText: false,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.phone_android),
+                        hintText: 'Phone Number',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(18)),
+                        filled: true,
+                        fillColor: Colors.white,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.phone_android),
-                            hintText: 'Phone Number',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(18)),
-                            filled: true,
-                            fillColor: Colors.white,
-                          ),
-                          obscureText: false,
+                      obscureText: false,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      obscureText: _obscureText,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.lock_outline),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
+                          icon: const Icon(Icons.remove_red_eye_outlined),
                         ),
+                        hintText: 'Password',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(18)),
+                        filled: true,
+                        fillColor: Colors.white,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          obscureText: _obscureText,
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.lock_outline),
-                            suffixIcon: IconButton(
+                    ),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: state is SignUpLoading
+                          ? const CircularProgressIndicator()
+                          : ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.black,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15))),
                               onPressed: () {
-                                setState(() {
-                                  _obscureText = !_obscureText;
-                                });
+                                context.read<UserCubit>().signUp();
                               },
-                              icon: const Icon(Icons.remove_red_eye_outlined),
-                            ),
-                            hintText: 'Password',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(18)),
-                            filled: true,
-                            fillColor: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: state is SignUpLoading
-                              ? const CircularProgressIndicator()
-                              : ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.black,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15))),
-                                  onPressed: () {
-                                    context.read<UserCubit>().signUp();
-                                  },
-                                  child: const Text('Sign Up',
-                                      style: TextStyle(color: Colors.white)))),
-                    ])));
+                              child: const Text('Sign Up',
+                                  style: TextStyle(color: Colors.white)))),
+                ])));
       },
     ));
   }

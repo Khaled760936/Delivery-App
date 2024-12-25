@@ -32,8 +32,7 @@ class _LoginPageState extends State<LoginPage> {
           body: Container(
             width: double.infinity,
             color: const Color.fromARGB(255, 7, 176, 255),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: ListView(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -97,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15))),
                             onPressed: () {
-                              context.read<UserCubit>().signUp();
+                              context.read<UserCubit>().signIn();
                             },
                             child: const Text('Login',
                                 style: TextStyle(color: Colors.white)))),
