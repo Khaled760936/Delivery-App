@@ -6,6 +6,7 @@ import 'package:test/cache/cacheHelper.dart';
 import 'package:test/core/api/dio_consumer.dart';
 import 'package:test/cubit/User_cubit.dart';
 import 'package:test/repositories/user_repository.dart';
+import 'package:test/screens/homePage.dart';
 import 'package:test/screens/loginPage.dart';
 import 'package:test/screens/SignUp.dart';
 import 'package:test/screens/splash.dart';
@@ -34,12 +35,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: Provider.of<ThemeProvider>(context).themeData,
         debugShowCheckedModeBanner: false,
-        initialRoute: "/SplashScreen",
+        initialRoute: "/HomePage",
         routes: {
           "/SplashScreen": (context) => const SplashScreen(),
           "/LoginPage": (context) => const LoginPage(),
           "/SignUp": (context) => const SignUp(),
+          "/HomePage": (context) => const HomePage(),
         });
   }
 }
