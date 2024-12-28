@@ -6,7 +6,7 @@ ThemeData LightMode = ThemeData(
   ),
   fontFamily: "Raleway",
   colorScheme: ColorScheme.light(
-    background: Color.fromARGB(255, 255, 255, 255),
+    background: Color.fromARGB(255, 229, 243, 253),
     primary: Colors.blue.shade700,
     secondary: Colors.blue.shade100,
     tertiary: Colors.white,

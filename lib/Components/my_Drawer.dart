@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test/Components/my_Drawer_tile.dart';
 import 'package:test/Components/my_user.dart';
 import 'package:test/screens/favoritePage.dart';
+import 'package:test/screens/myOrdersPage.dart';
 import 'package:test/screens/profilePage.dart';
 import 'package:test/screens/settingsPage.dart';
 
@@ -64,10 +65,23 @@ class _MyDrawerState extends State<MyDrawer> {
             icon: Icons.favorite,
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FavoriteScreen(),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FavoriteScreen(),
+                ),
+              );
+            },
+          ),
+          MyDrawerTile(
+            text: "My Orders",
+            icon: Icons.shopping_bag_outlined,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OrdersPage(),
+                ),
+              );
             },
           ),
           const Spacer(),

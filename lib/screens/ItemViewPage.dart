@@ -94,7 +94,12 @@ class _ItemViewState extends State<ItemView> {
                     : () {
                         setState(() {
                           addedToCart.add(
-                            ItemsOnCart(item: widget.item, onDelete: () {}),
+                            ItemsOnCart(
+                              item: widget.item,
+                              onDelete: () {},
+                              quantity: 1,
+                              onQuantityChange: (p0) {},
+                            ),
                           );
                           widget.item.isAddedToCart = true;
                         });

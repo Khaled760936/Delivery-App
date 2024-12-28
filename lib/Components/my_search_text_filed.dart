@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/Components/my_item.dart';
 import 'package:test/Components/my_items_list.dart';
+import 'package:test/screens/ItemViewPage.dart';
 
 class MySearchTextField extends StatefulWidget {
   const MySearchTextField({super.key});
@@ -85,14 +86,33 @@ class _MySearchTextFieldState extends State<MySearchTextField> {
               child: ListView.builder(
                 itemCount: _filteredItems.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(_filteredItems[index].name),
+                  return GestureDetector(
                     onTap: () {
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => ItemView(item: _filteredItems[index]),));
                       setState(() {
+                        
                         _controller.text = _filteredItems[index].name;
                         _showSuggestions = false;
                       });
                     },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8.0,
+                        horizontal: 12.0,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Theme.of(context).colorScheme.tertiary,
+                      ),
+                      margin: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(
+                        _filteredItems[index].name,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                        ),
+                      ),
+                    ),
                   );
                 },
               ),
