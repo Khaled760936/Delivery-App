@@ -9,8 +9,9 @@ class ApiKey {
   static String errorMessage = "ErrorMessage";
   static String password = "password";
   static String token = "token";
-  static String phoneNumber = "phoneNumber";
+  static String phoneNumber = "phone";
   static String message = "message";
-  static String firstName = "firstName";
-  static String lastName = "lastName";
+  static String firstName = "first-name";
+  static String lastName = "last-name";
+  static String location = "location";
 }
