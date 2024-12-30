@@ -36,13 +36,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: Provider.of<ThemeProvider>(context).themeData,
-        debugShowCheckedModeBanner: false,
-        initialRoute: "/HomePage",
-        routes: {
-          "/SplashScreen": (context) => const SplashScreen(),
-          "/LoginPage": (context) => const LoginPage(),
-          "/SignUp": (context) => const SignUp(),
-          "/HomePage": (context) => const HomePage(),
-        });
+      debugShowCheckedModeBanner: false,
+      initialRoute: "/HomePage",
+      routes: {
+        "/SplashScreen": (context) => const SplashScreen(),
+        "/LoginPage": (context) => const LoginPage(),
+        "/SignUp": (context) => const SignUp(),
+        "/HomePage": (context) => const HomePage(),
+      },
+    );
   }
 }

@@ -29,7 +29,7 @@ class UserRepository {
       required String phoneNumber,
       required String password}) async {
     try {
-      final response = await api.post(EndPoint.signUp, isFormData: true, data: {
+      final response = await api.post(EndPoint.signUp, data: {
         ApiKey.firstName: firstName,
         ApiKey.lastName: lastName,
         ApiKey.phoneNumber: phoneNumber,

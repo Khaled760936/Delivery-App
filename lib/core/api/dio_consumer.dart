@@ -23,10 +23,10 @@ class DioConsumer extends ApiConsumer {
   Future delete(String path,
       {dynamic data,
       Map<String, dynamic>? queryParameters,
-      bool isFormData = false}) async {
+      }) async {
     try {
       final response = await dio.delete(path,
-          data: isFormData ? FormData.fromMap(data) : data,
+          data: data,
           queryParameters: queryParameters);
       return response.data;
     } on DioException catch (e) {
@@ -50,10 +50,10 @@ class DioConsumer extends ApiConsumer {
   Future patch(String path,
       {dynamic data,
       Map<String, dynamic>? queryParameters,
-      bool isFormData = false}) async {
+      }) async {
     try {
       final response = await dio.patch(path,
-          data: isFormData ? FormData.fromMap(data) : data,
+          data:  data,
           queryParameters: queryParameters);
       return response.data;
     } on DioException catch (e) {
@@ -64,11 +64,11 @@ class DioConsumer extends ApiConsumer {
   @override
   Future post(String path,
       {dynamic data,
-      Map<String, dynamic>? queryParameters,
-      bool isFormData = false}) async {
+      Map<String, dynamic>? queryParameters
+      }) async {
     try {
       final response = await dio.post(path,
-          data: isFormData ? FormData.fromMap(data) : data,
+          data:  data,
           queryParameters: queryParameters);
       return response.data;
     } on DioException catch (e) {

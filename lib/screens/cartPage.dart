@@ -108,28 +108,43 @@ class _BasketPageState extends State<BasketPage> {
                   child: GestureDetector(
                     onTap: () {
                       showDialog(
-                        //بدل ما تطلع على سكرين جديدة بيطلع متل شاشة صغيرة بنص الشاشة
                         context: context,
                         builder: (context) => AlertDialog(
                           content: const Text(
                             'Your request has been added to your current location. You can modify or cancel the request for a maximum of 24 hours. You can monitor the request from the “My Requests” window...',
-                          ), //بدي وقت الوصول من الباك
+                          ),
                           actions: [
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
-                                Order order = Order(itemsOrderd: addedToCart,timecreated: DateTime.now(),);
+
+                                // Create a deep copy of addedToCart
+                                List<ItemsOnCart> orderItems =
+                                    addedToCart.map((cartItem) {
+                                  return ItemsOnCart(
+                                    item: cartItem.item,
+                                    quantity: cartItem.quantity,
+                                    onDelete: () {},
+                                    onQuantityChange: (int) {},
+                                  );
+                                }).toList();
+
+                                Order order = Order(
+                                  itemsOrderd:
+                                      orderItems, // Use the copied list
+                                  timecreated: DateTime.now(),
+                                );
                                 orders.add(order);
 
                                 setState(() {
-                                  for(int i=0 ;i <addedToCart.length;i++){
-                                    addedToCart[i].item.isAddedToCart=false;
+                                  for (int i = 0; i < addedToCart.length; i++) {
+                                    addedToCart[i].item.isAddedToCart = false;
                                   }
-                                  addedToCart.clear();
+                                  addedToCart
+                                      .clear(); // Clear the cart only after creating the order
                                 });
-
                               },
-                              child: const Text('Close'),
+                              child: const Text('done'),
                             ),
                           ],
                         ),

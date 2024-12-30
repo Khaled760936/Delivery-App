@@ -5,6 +5,7 @@ import 'package:test/screens/favoritePage.dart';
 import 'package:test/screens/myOrdersPage.dart';
 import 'package:test/screens/profilePage.dart';
 import 'package:test/screens/settingsPage.dart';
+import 'package:test/screens/splash.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -88,7 +89,7 @@ class _MyDrawerState extends State<MyDrawer> {
           MyDrawerTile(
             text: "Logout",
             icon: Icons.logout,
-            onTap: () {},
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder:(context) => SplashScreen(),)),
           ),
           const SizedBox(
             height: 25,
