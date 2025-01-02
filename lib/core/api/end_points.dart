@@ -1,7 +1,7 @@
 class EndPoint {
-  static String baseUrl = "";
-  static String signIn = "";
-  static String signUp = "";
+  static String baseUrl = "http://ivory-crane-814041.hostingersite.com/api/";
+  static String signIn = "login?phone=1234567891&password=password1";
+  static String signUp = "register?first_name=aaaa&last_name=bbbb&phone=0938061022&password=password";
 }
 
 class ApiKey {

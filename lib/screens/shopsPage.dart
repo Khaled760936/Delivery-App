@@ -26,12 +26,7 @@ class ShopScreen extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  shops[0],
-                  shops[1],
-                  shops[2],
-                  shops[3],
-                  shops[4],
-                  shops[5],
+                
                 ],
               ),
             ),

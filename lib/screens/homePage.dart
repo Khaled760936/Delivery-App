@@ -3,7 +3,7 @@ import 'package:test/Components/my_Drawer.dart';
 import 'package:test/Components/my_items_list.dart';
 import 'package:test/Components/my_offers.dart';
 import 'package:test/Components/my_search_text_filed.dart';
-import 'package:test/Components/my_shop_list.dart';
+import 'package:test/core/api/shop_api_service.dart';
 import 'package:test/screens/ItemsPage.dart';
 import 'package:test/screens/cartPage.dart';
 import 'package:test/screens/shopsPage.dart';
@@ -90,21 +90,24 @@ class HomePage extends StatelessWidget {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
-                        shops[0],
-                        shops[1],
-                        shops[2],
                         IconButton(
-                          icon: const Icon(
-                            Icons.navigate_next,
-                            size: 36,
-                          ),
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ShopScreen(),
+                            icon: const Icon(
+                              Icons.navigate_next,
+                              size: 36,
                             ),
-                          ),
-                        ),
+                            onPressed: () async {
+                              ShopApiService shopApiService = ShopApiService();
+                              var shops = await shopApiService.fetchShops();
+                              for (var shop in shops){
+                                print(shop.name);
+                              }
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ShopScreen(),
+                                ),
+                              );
+                            }),
                       ],
                     ),
                   ),

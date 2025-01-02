@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:test/Components/my_item.dart';
+import 'package:test/Components/my_items_list.dart';
 import 'package:test/screens/shopViewPage.dart';
 
 class Shop extends StatelessWidget {
+  int ID;
   String image;
   String name;
-  List<Item> shopItem;
+  List<Item> shopItem=items;
   // Function moveToElements;
   Shop({
     Key? key,
-    required this.shopItem,
+    required this.ID,
     required this.image,
     required this.name,
     // required this.moveToElements,
   }) : super(key: key);
-
+factory Shop.fromJson(Map<String, dynamic> json) {
+  return Shop(
+    ID: json['id'] as int,
+    name: json['name'] as String,
+    image: json['logo'] as String,
+  );
+}
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -49,7 +57,7 @@ class Shop extends StatelessWidget {
                         topLeft: Radius.circular(15),
                         topRight: Radius.circular(15)),
                     image: DecorationImage(
-                        image: AssetImage(image), fit: BoxFit.cover)),
+                        image: NetworkImage(image), fit: BoxFit.cover)),
               ),
               Row(
                 children: [
