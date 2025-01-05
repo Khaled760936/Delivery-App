@@ -1,7 +1,11 @@
+import 'package:test/Components/my_user.dart';
+import 'package:test/classes/Userservis.dart';
+
 class EndPoint {
   static String baseUrl = "http://ivory-crane-814041.hostingersite.com/api/";
   static String signIn = "login?phone=1234567891&password=password1";
-  static String signUp = "register?first_name=aaaa&last_name=bbbb&phone=0938061022&password=password";
+  static String signUp =
+      "register?first_name=aaaa&last_name=bbbb&phone=0938061022&password=password";
 }
 
 class ApiKey {
@@ -14,4 +18,11 @@ class ApiKey {
   static String firstName = "first-name";
   static String lastName = "last-name";
   static String location = "location";
+  static int? id;
+  static UserService user = UserService(
+      firstName: firstName,
+      lastName: lastName,
+      id: id!,
+      phone: phoneNumber,
+      token: token);
 }

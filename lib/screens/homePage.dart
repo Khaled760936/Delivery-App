@@ -96,17 +96,14 @@ class HomePage extends StatelessWidget {
                               size: 36,
                             ),
                             onPressed: () async {
-                              ShopApiService shopApiService = ShopApiService();
-                              var shops = await shopApiService.fetchShops();
-                              for (var shop in shops){
-                                print(shop.name);
+                              final shopService = ShopApiService();
+                              try {
+                                final shops = await shopService.fetchShops();
+                                print(
+                                    'Fetched ${shops.length} shops successfully.');
+                              } catch (e) {
+                                print('Error: $e');
                               }
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ShopScreen(),
-                                ),
-                              );
                             }),
                       ],
                     ),

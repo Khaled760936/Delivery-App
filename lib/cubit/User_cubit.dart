@@ -25,6 +25,8 @@ class UserCubit extends Cubit<UserState> {
   SignUpModel? signUpModel;
 
 
+  
+
   signIn() async {
     emit(SignInLoading());
     final response = await userRepository.signIn(

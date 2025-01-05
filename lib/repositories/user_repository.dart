@@ -16,7 +16,8 @@ class UserRepository {
       final response = await api.post(EndPoint.signIn,
           data: {ApiKey.phoneNumber: phoneNumber, ApiKey.password: password});
       final signInModel = SignInModel.fromJson(response);
-      CacheHelper().saveData(key: ApiKey.token, value: signInModel.token);
+     // CacheHelper().saveData(key: ApiKey.token, value: signInModel.token);
+     CacheHelper().saveData(key: ApiKey.token,value:signInModel.user);
       return Right(signInModel);
     } on ServerException catch (e) {
       return left(e.errorModel.errorMessage);
