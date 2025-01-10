@@ -23,7 +23,7 @@ class _MySearchTextFieldState extends State<MySearchTextField> {
       });
     } else {
       setState(() {
-        _filteredItems = items
+       _filteredItems = allItems
             .where(
                 (item) => item.name.toLowerCase().contains(query.toLowerCase()))
             .toList();

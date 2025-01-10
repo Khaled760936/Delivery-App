@@ -62,7 +62,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 onPressed: () {
                                   setState(() {
                                     // Remove the item from the favorite list
-                                    favorite[index].isAddedToFavoraite = false;
+                                    favorite[index].isAddedToFavorite = false;
                                     favorite.removeAt(index);
                                   });
                                 },

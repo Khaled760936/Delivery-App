@@ -1,7 +1,11 @@
 // import 'package:test/Components/my_items_list.dart';
 // import 'package:test/Components/my_shop.dart';
 
-// List<Shop> shops = [
+import 'package:test/Components/my_shop.dart';
+
+List<Shop> shops = [];
+
+
 //   // Shop(image: "assets/images/adidas.png", name: "Adidas", shopItem: items,ID: 1,
 //   //     //  moveToElements: () {},  
 //   //     ),

@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:test/Components/my_Drawer.dart';
+import 'package:test/Components/my_item.dart';
 import 'package:test/Components/my_items_list.dart';
 import 'package:test/Components/my_offers.dart';
 import 'package:test/Components/my_search_text_filed.dart';
-import 'package:test/core/api/shop_api_service.dart';
+import 'package:test/Components/my_shop_list.dart';
+import 'package:test/core/api/ShopapiService.dart';
+import 'package:test/core/api/all_items_service.dart';
 import 'package:test/screens/ItemsPage.dart';
 import 'package:test/screens/cartPage.dart';
 import 'package:test/screens/shopsPage.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final apiService = ShopApiService();
+
+  final endpoint = 'stores/all';
+
+
+  @override
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -90,19 +106,27 @@ class HomePage extends StatelessWidget {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
+                            shops[0],
+                            shops[1],
                         IconButton(
                             icon: const Icon(
                               Icons.navigate_next,
                               size: 36,
                             ),
                             onPressed: () async {
-                              final shopService = ShopApiService();
+                              final apiService = ShopApiService();
+                              final endpoint = 'stores/all';
+                              
                               try {
-                                final shops = await shopService.fetchShops();
-                                print(
-                                    'Fetched ${shops.length} shops successfully.');
+                                shops = await apiService.getShops(endpoint);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ShopScreen(),
+                                    ));
+                                // Print shop details
                               } catch (e) {
-                                print('Error: $e');
+                                print('Error fetching shops: $e');
                               }
                             }),
                       ],
@@ -122,12 +146,16 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 10),
                   SizedBox(
                     height: 170,
-                    child: ListView(
+                    child: 
+                    
+                    
+                    
+                    ListView(
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
-                        items[0],
-                        items[1],
-                        items[2],
+                      allItems[0],
+                      allItems[1],
+                      allItems[2],
                         IconButton(
                           icon: const Icon(
                             Icons.navigate_next,

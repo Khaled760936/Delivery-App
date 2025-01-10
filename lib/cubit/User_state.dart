@@ -12,7 +12,7 @@ final class SignInLoading extends UserState {}
 
 final class SignInFailure extends UserState {
   final String errorMessage;
-
+  
   SignInFailure({required this.errorMessage});
 }
 

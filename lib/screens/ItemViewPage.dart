@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test/Components/my_cart_list.dart';
-
 import 'package:test/Components/my_item.dart';
 import 'package:test/Components/my_item_for_cart.dart';
+import 'dart:io'; // For checking internet connection
 
 class ItemView extends StatefulWidget {
   final Item item;
@@ -14,6 +14,30 @@ class ItemView extends StatefulWidget {
 }
 
 class _ItemViewState extends State<ItemView> {
+  bool _hasInternet = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkInternetConnection();
+  }
+
+  Future<void> _checkInternetConnection() async {
+    try {
+      // Attempt to ping a reliable host
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          _hasInternet = true;
+        });
+      }
+    } on SocketException catch (_) {
+      setState(() {
+        _hasInternet = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +63,38 @@ class _ItemViewState extends State<ItemView> {
           ),
           child: ListView(
             children: [
+              // Image with error handling
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
-                  child: Image.asset(widget.item.image, fit: BoxFit.fill),
                   height: 200,
+                  child: widget.item.image.startsWith('http')
+                      ? Image.network(
+                          widget.item.image,
+                          fit: BoxFit.fill,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Center(
+                              child: Icon(
+                                Icons.broken_image,
+                                size: 100,
+                                color: Colors.grey,
+                              ),
+                            );
+                          },
+                        )
+                      : Image.asset(
+                          widget.item.image,
+                          fit: BoxFit.fill,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Center(
+                              child: Icon(
+                                Icons.image_not_supported,
+                                size: 100,
+                                color: Colors.grey,
+                              ),
+                            );
+                          },
+                        ),
                 ),
               ),
               const SizedBox(height: 40),
@@ -71,7 +122,7 @@ class _ItemViewState extends State<ItemView> {
                           fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.item.descrebtion,
+                      widget.item.description,
                       style: const TextStyle(fontSize: 12),
                     ),
                     const SizedBox(height: 60),
@@ -82,46 +133,52 @@ class _ItemViewState extends State<ItemView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Price: ${widget.item.priceAsString}",
+                    "Price: ${widget.item.price}",
                     style: const TextStyle(fontSize: 16, color: Colors.green),
                   ),
                 ],
               ),
               const SizedBox(height: 10),
               GestureDetector(
-                onTap: widget.item.isAddedToCart
-                    ? null // Disable the GestureDetector if the item is already added
-                    : () {
-                        setState(() {
-                          addedToCart.add(
-                            ItemsOnCart(
-                              item: widget.item,
-                              onDelete: () {},
-                              quantity: 1,
-                              onQuantityChange: (p0) {},
-                            ),
-                          );
-                          widget.item.isAddedToCart = true;
-                        });
-                      },
+                onTap: !_hasInternet
+                    ? null // Disable if there's no internet
+                    : widget.item.isAddedToCart
+                        ? null // Disable if the item is already added
+                        : () {
+                            setState(() {
+                              addedToCart.add(
+                                ItemsOnCart(
+                                  item: widget.item,
+                                  onDelete: () {},
+                                  quantity: 1,
+                                  onQuantityChange: (p0) {},
+                                ),
+                              );
+                              widget.item.isAddedToCart = true;
+                            });
+                          },
                 child: Padding(
                   padding: const EdgeInsets.all(25.0),
                   child: Container(
                     height: 60,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: widget.item.isAddedToCart
-                          ? Colors.grey // Change color for disabled state
-                          : Theme.of(context).colorScheme.secondary,
+                      color: !_hasInternet
+                          ? Colors.red // Indicate no internet
+                          : widget.item.isAddedToCart
+                              ? Colors.grey // Change color for disabled state
+                              : Theme.of(context).colorScheme.secondary,
                     ),
                     child: Center(
                       child: Text(
-                        widget.item.isAddedToCart
-                            ? "Item added successfully"
-                            : "Add to Cart",
+                        !_hasInternet
+                            ? "No Internet Connection"
+                            : widget.item.isAddedToCart
+                                ? "Item added successfully"
+                                : "Add to Cart",
                         style: TextStyle(
                           fontSize: 15,
-                          color: widget.item.isAddedToCart
+                          color: !_hasInternet || widget.item.isAddedToCart
                               ? Colors.white
                               : Theme.of(context).colorScheme.tertiary,
                         ),
@@ -135,22 +192,24 @@ class _ItemViewState extends State<ItemView> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            if (!widget.item.isAddedToFavoraite) {
-              favorite.add(widget.item);
-            } else {
-              favorite.remove(widget.item);
-            }
-            widget.item.isAddedToFavoraite = !widget.item.isAddedToFavoraite;
-          });
-        },
-        backgroundColor: widget.item.isAddedToFavoraite
+        onPressed: !_hasInternet
+            ? null // Disable favorite button if there's no internet
+            : () {
+                setState(() {
+                  if (!widget.item.isAddedToFavorite) {
+                    favorite.add(widget.item);
+                  } else {
+                    favorite.remove(widget.item);
+                  }
+                  widget.item.isAddedToFavorite = !widget.item.isAddedToFavorite;
+                });
+              },
+        backgroundColor: widget.item.isAddedToFavorite
             ? Theme.of(context).colorScheme.primary
             : Theme.of(context).colorScheme.tertiary,
         child: Icon(
           Icons.favorite,
-          color: widget.item.isAddedToFavoraite
+          color: widget.item.isAddedToFavorite
               ? Theme.of(context).colorScheme.tertiary
               : Theme.of(context).colorScheme.primary,
         ),

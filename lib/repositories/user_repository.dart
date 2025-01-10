@@ -16,8 +16,8 @@ class UserRepository {
       final response = await api.post(EndPoint.signIn,
           data: {ApiKey.phoneNumber: phoneNumber, ApiKey.password: password});
       final signInModel = SignInModel.fromJson(response);
-     // CacheHelper().saveData(key: ApiKey.token, value: signInModel.token);
-     CacheHelper().saveData(key: ApiKey.token,value:signInModel.user);
+      CacheHelper().saveData(key: ApiKey.token, value: signInModel.token);
+      CacheHelper().saveData(key: ApiKey.user, value: signInModel.user);
       return Right(signInModel);
     } on ServerException catch (e) {
       return left(e.errorModel.errorMessage);
@@ -37,6 +37,9 @@ class UserRepository {
         ApiKey.password: password,
       });
       final signUpModel = SignUpModel.fromJson(response);
+      CacheHelper().saveData(key: ApiKey.token, value: signUpModel.token);
+      CacheHelper().saveData(key: ApiKey.user, value: signUpModel.user);
+
       CacheHelper().saveData(key: ApiKey.token, value: signUpModel.token);
       return Right(signUpModel);
     } on ServerException catch (e) {

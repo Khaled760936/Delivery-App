@@ -18,7 +18,7 @@ class ItemsOnCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double totalPrice = quantity * item.price; // Calculate total price per item
+    double totalPrice =  quantity *double.parse(item.price) ; // Calculate total price per item
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -60,7 +60,7 @@ class ItemsOnCart extends StatelessWidget {
                         item.name,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text('Price: \$${item.price.toStringAsFixed(2)}'),
+                      Text('Price: \$${item.price}'),
                       Text('Total Price: \$${totalPrice.toStringAsFixed(2)}'),
                     ],
                   ),

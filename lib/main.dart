@@ -2,7 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:test/Components/my_items_list.dart';
+import 'package:test/Components/my_shop_list.dart';
 import 'package:test/cache/cacheHelper.dart';
+import 'package:test/core/api/ShopapiService.dart';
+import 'package:test/core/api/all_items_service.dart';
 import 'package:test/core/api/dio_consumer.dart';
 import 'package:test/cubit/User_cubit.dart';
 import 'package:test/repositories/user_repository.dart';
@@ -12,7 +16,23 @@ import 'package:test/screens/SignUp.dart';
 import 'package:test/screens/splash.dart';
 import 'package:test/themes/themeProvider.dart';
 
-void main() {
+Future<void> main() async {
+  final apiService = ShopApiService();
+  final endpoint = 'stores/all';
+
+  try {
+    shops = await apiService.getShops(endpoint);
+  } catch (e) {
+    print('Error fetching shops: $e');
+  }
+
+  final AllapiService = AllProductApiService();
+
+  try {
+    allItems = await AllapiService.fetchProducts();
+  } catch (e) {
+    print('sorry: $e');
+  }
   WidgetsFlutterBinding.ensureInitialized();
   CacheHelper().init();
   runApp(MultiProvider(
@@ -27,6 +47,7 @@ void main() {
     ],
     child: const MyApp(),
   ));
+  // final aa = await apiService.get('stores/all');
 }
 
 class MyApp extends StatelessWidget {
@@ -37,7 +58,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: Provider.of<ThemeProvider>(context).themeData,
       debugShowCheckedModeBanner: false,
-      initialRoute: "/HomePage",
+      initialRoute: "/LoginPage",
       routes: {
         "/SplashScreen": (context) => const SplashScreen(),
         "/LoginPage": (context) => const LoginPage(),

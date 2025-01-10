@@ -14,7 +14,7 @@ class _BasketPageState extends State<BasketPage> {
   double calculateTotalPrice() {
     double total = 0.0;
     for (var cartItem in addedToCart) {
-      total += cartItem.item.price * cartItem.quantity;
+      total += double.parse(cartItem.item.price) * cartItem.quantity;
     }
     return total;
   }

@@ -46,7 +46,7 @@ class OrderDetailes extends StatelessWidget {
                   return Card(
                     margin: const EdgeInsets.symmetric(vertical: 8),
                     child: ListTile(
-                      title: Text(item.item.descrebtion),
+                      title: Text(item.item.description),
                       subtitle: Text("Quantity: ${item.quantity}"),
                     ),
                   );

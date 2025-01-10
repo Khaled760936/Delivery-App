@@ -53,6 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: TextField(
+                    controller: context.read<UserCubit>().signInPhonerNumber,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.phone_android),
                       hintText: 'phone Number',
@@ -67,6 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: TextField(
+                    controller: context.read<UserCubit>().signInPassword,
                     obscureText: _obscureText,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.lock_outline),

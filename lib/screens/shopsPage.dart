@@ -21,14 +21,11 @@ class ShopScreen extends StatelessWidget {
           children: [
             Expanded(
               flex: 1,
-              child: ListView(
-                children: <Widget>[
-                  const SizedBox(
-                    height: 15,
-                  ),
-                
-                ],
-              ),
+              child: ListView.builder(
+                  itemCount: shops.length,
+                  itemBuilder: (context, index) {
+                    return shops[index];
+                  }),
             ),
           ],
         ));

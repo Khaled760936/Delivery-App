@@ -45,6 +45,7 @@ class _SignUpState extends State<SignUp> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      controller: context.read<UserCubit>().signUpFirstName,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.person),
                         hintText: 'First Name',
@@ -59,6 +60,7 @@ class _SignUpState extends State<SignUp> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      controller: context.read<UserCubit>().signUpLastName,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.person),
                         hintText: 'Last Name',
@@ -73,6 +75,7 @@ class _SignUpState extends State<SignUp> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      controller: context.read<UserCubit>().signUpNumber,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.phone_android),
                         hintText: 'Phone Number',
@@ -87,6 +90,7 @@ class _SignUpState extends State<SignUp> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      controller: context.read<UserCubit>().signUpPassword,
                       obscureText: _obscureText,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.lock_outline),
